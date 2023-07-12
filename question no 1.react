@@ -1,0 +1,45 @@
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+function NumbersManagementService() {
+  return (
+    <Router>
+      <Switch>
+        <Route exact path="/numbers">
+          <NumbersPage />
+        </Route>
+      </Switch>
+    </Router>
+  );
+}
+
+function NumbersPage() {
+  const queryParams = new URLSearchParams(window.location.search);
+  const urls = queryParams.getAll('url');
+
+  if (urls.length === 0) {
+    return <div>Error: URL parameter is required</div>;
+  }
+
+  // Assuming you want to process the URLs here
+  // You can perform any required operations on the URLs and return the result
+
+  const processedUrls = urls.map((url) => {
+    // Perform any necessary processing on each URL here
+    return { url, processed: true }; // Example response, modify it based on your requirements
+  });
+
+  return (
+    <div>
+      <h1>Numbers Management Service</h1>
+      <h2>Processed URLs:</h2>
+      <ul>
+        {processedUrls.map((processedUrl, index) => (
+          <li key={index}>
+            <strong>URL:</strong> {processedUrl.url} | <strong>Processed:</strong> {processedUrl.processed.toString()}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
